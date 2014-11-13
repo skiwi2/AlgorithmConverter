@@ -7,10 +7,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,11 +30,20 @@ import javafx.util.StringConverter;
  * @author Frank van Heeswijk
  */
 public class MainController implements Initializable {
+    private final static String OPEN_FILE_KEY = "OpenFileDirectory";
+    private final static String SAVE_FILE_KEY = "SaveFileDirectory";
+    
     @FXML private AnchorPane anchorPane;
     @FXML private ComboBox<Typeset> typesetComboBox;
     @FXML private TextArea inputTextArea;
     @FXML private TextArea outputTextArea;
-
+    
+    private final Preferences preferences;
+    
+    public MainController() {
+        this.preferences = Preferences.userNodeForPackage(MainController.class);
+    }
+    
     @Override
     public void initialize(final URL url, final ResourceBundle resourceBundle) {
         typesetComboBox.setConverter(new StringConverter<Typeset>() {
@@ -52,10 +64,16 @@ public class MainController implements Initializable {
     @FXML
     private void handleLoadInputFromFileButtonAction(final ActionEvent actionEvent) throws IOException {
         FileChooser fileChooser = new FileChooser();
+        String initialDirectory = preferences.get(OPEN_FILE_KEY, null);
+        if (initialDirectory != null) {
+            fileChooser.setInitialDirectory(Paths.get(initialDirectory).toFile());
+        }
         fileChooser.setTitle("Load input from file");
         File selectedFile = fileChooser.showOpenDialog(anchorPane.getScene().getWindow());
         if (selectedFile != null) {
-            Files.lines(selectedFile.toPath(), StandardCharsets.UTF_8).forEach(line -> inputTextArea.appendText(line + System.lineSeparator()));
+            Path selectedPath = selectedFile.toPath();
+            preferences.put(OPEN_FILE_KEY, selectedPath.getParent().toString());
+            Files.lines(selectedPath, StandardCharsets.UTF_8).forEach(line -> inputTextArea.appendText(line + System.lineSeparator()));
         }
     }
     
