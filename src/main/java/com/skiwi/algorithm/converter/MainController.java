@@ -74,6 +74,7 @@ public class MainController implements Initializable {
         if (selectedFile != null) {
             Path selectedPath = selectedFile.toPath();
             preferences.put(OPEN_FILE_KEY, selectedPath.getParent().toString());
+            inputTextArea.clear();
             Files.lines(selectedPath, StandardCharsets.UTF_8).forEach(line -> inputTextArea.appendText(line + System.lineSeparator()));
         }
     }
