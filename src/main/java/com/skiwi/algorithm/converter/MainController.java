@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -91,7 +92,8 @@ public class MainController implements Initializable {
         if (selectedFile != null) {
             Path selectedPath = selectedFile.toPath();
             preferences.put(SAVE_FILE_KEY, selectedPath.getParent().toString());
-            Files.write(selectedPath, inputTextArea.getParagraphs(), StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
+            OpenOption openOption = (Files.exists(selectedPath)) ? StandardOpenOption.TRUNCATE_EXISTING : StandardOpenOption.CREATE_NEW;
+            Files.write(selectedPath, inputTextArea.getParagraphs(), StandardCharsets.UTF_8, openOption);
         }
     }
     
