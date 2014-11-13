@@ -6,6 +6,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.skiwi.algorithm.converter.MainController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1024.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.skiwi.algorithm.converter.MainController">
+   <children>
+      <GridPane layoutX="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TextArea fx:id="inputTextArea" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+               <children>
+                  <TextArea fx:id="outputTextArea" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <ComboBox fx:id="typesetComboBox" layoutY="81.0" prefWidth="130.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="100.0" />
+                  <Button layoutX="46.0" layoutY="131.0" mnemonicParsing="false" text="Convert" AnchorPane.topAnchor="134.0" />
+                  <Label layoutX="37.0" layoutY="77.0" text="Target typeset" AnchorPane.topAnchor="76.0" />
+                  <Button layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLoadInputFromFileButtonAction" text="Load input from file" AnchorPane.topAnchor="28.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
+   </children>
 </AnchorPane>

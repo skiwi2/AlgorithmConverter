@@ -19,6 +19,7 @@ final public class AlgorithmConverter extends Application {
         stage.setTitle("Algorithm Converter");
         stage.setScene(scene);
         stage.centerOnScreen();
+        stage.setMaximized(true);
         stage.show();
     }
 
