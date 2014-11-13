@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -37,7 +38,11 @@ public class MainController implements Initializable {
     
     @FXML private AnchorPane anchorPane;
     @FXML private ComboBox<Typeset> typesetComboBox;
+    
+    @FXML private Label inputLabel;
     @FXML private TextArea inputTextArea;
+    
+    @FXML private Label outputLabel;
     @FXML private TextArea outputTextArea;
     
     private final Preferences preferences;
@@ -61,10 +66,13 @@ public class MainController implements Initializable {
         });
         typesetComboBox.getItems().addAll(Typeset.values());
         typesetComboBox.getSelectionModel().selectFirst();
+        
+        inputLabel.setText("(New file)");
+        outputLabel.textProperty().bind(inputLabel.textProperty());
     }
     
     @FXML
-    private void handleLoadInputFromFileButtonAction(final ActionEvent actionEvent) throws IOException {
+    private void handleOpenInputAction(final ActionEvent actionEvent) throws IOException {
         FileChooser fileChooser = new FileChooser();
         String initialDirectory = preferences.get(OPEN_FILE_KEY, null);
         if (initialDirectory != null) {
@@ -77,12 +85,13 @@ public class MainController implements Initializable {
             preferences.put(OPEN_FILE_KEY, selectedPath.getParent().toString());
             inputTextArea.clear();
             outputTextArea.clear();
+            inputLabel.setText(selectedPath.getFileName().toString());
             Files.lines(selectedPath, StandardCharsets.UTF_8).forEach(line -> inputTextArea.appendText(line + System.lineSeparator()));
         }
     }
     
     @FXML
-    private void handleSaveInputToFileButtonAction(final ActionEvent actionEvent) throws IOException {
+    private void handleSaveInputAction(final ActionEvent actionEvent) throws IOException {
         FileChooser fileChooser = new FileChooser();
         String initialDirectory = preferences.get(SAVE_FILE_KEY, preferences.get(OPEN_FILE_KEY, null)); //if save directory not set, fall back to open directory
         if (initialDirectory != null) {
