@@ -1,5 +1,7 @@
 package com.skiwi.algorithm.converter;
 
+import com.skiwi.algorithm.converter.converters.AlgorithmConverter;
+import com.skiwi.algorithm.converter.converters.LatexAlgoConverter;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Map;
@@ -45,20 +47,33 @@ public class MainController implements Initializable {
         
     }
     
+    @FXML
+    private void handleConvertButtonAction(final ActionEvent actionEvent) {
+        Typeset typeset = typesetComboBox.getSelectionModel().getSelectedItem();
+        String output = typeset.getAlgorithmConverter().convert(inputTextArea.getText());
+        outputTextArea.setText(output);
+    }
+    
     private static enum Typeset {
-        LATEX_ALGO("LaTeX (algo.sty)");
+        LATEX_ALGO("LaTeX (algo.sty)", new LatexAlgoConverter());
         
         private static final Map<String, Typeset> DESCRIPTION_MAPPING = Arrays.stream(Typeset.values())
             .collect(Collectors.toMap(Typeset::getDescription, i -> i));
         
         private final String description;
+        private final AlgorithmConverter algorithmConverter;
         
-        private Typeset(final String description) {
+        private Typeset(final String description, final AlgorithmConverter algorithmConverter) {
             this.description = Objects.requireNonNull(description, "description");
+            this.algorithmConverter = Objects.requireNonNull(algorithmConverter, "algorithmConverter");
         }
         
         public String getDescription() {
             return description;
+        }
+
+        public AlgorithmConverter getAlgorithmConverter() {
+            return algorithmConverter;
         }
         
         public static Typeset getByDescription(final String description) {

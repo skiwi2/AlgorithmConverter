@@ -32,7 +32,7 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
                   <ComboBox fx:id="typesetComboBox" layoutY="81.0" prefWidth="130.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="100.0" />
-                  <Button layoutX="46.0" layoutY="131.0" mnemonicParsing="false" text="Convert" AnchorPane.topAnchor="134.0" />
+                  <Button layoutX="46.0" layoutY="131.0" mnemonicParsing="false" onAction="#handleConvertButtonAction" text="Convert" AnchorPane.topAnchor="134.0" />
                   <Label layoutX="37.0" layoutY="77.0" text="Target typeset" AnchorPane.topAnchor="76.0" />
                   <Button layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLoadInputFromFileButtonAction" text="Load input from file" AnchorPane.topAnchor="28.0" />
                </children>
