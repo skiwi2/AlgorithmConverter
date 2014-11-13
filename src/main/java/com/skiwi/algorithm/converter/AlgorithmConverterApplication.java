@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-final public class AlgorithmConverter extends Application {
+final public class AlgorithmConverterApplication extends Application {
 
     @Override
     public void start(final Stage stage) throws Exception {
