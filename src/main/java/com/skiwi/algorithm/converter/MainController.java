@@ -2,7 +2,11 @@ package com.skiwi.algorithm.converter;
 
 import com.skiwi.algorithm.converter.converters.AlgorithmConverter;
 import com.skiwi.algorithm.converter.converters.LatexAlgoConverter;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
@@ -13,6 +17,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 
 /**
@@ -21,6 +27,7 @@ import javafx.util.StringConverter;
  * @author Frank van Heeswijk
  */
 public class MainController implements Initializable {
+    @FXML private AnchorPane anchorPane;
     @FXML private ComboBox<Typeset> typesetComboBox;
     @FXML private TextArea inputTextArea;
     @FXML private TextArea outputTextArea;
@@ -43,8 +50,13 @@ public class MainController implements Initializable {
     }
     
     @FXML
-    private void handleLoadInputFromFileButtonAction(final ActionEvent actionEvent) {
-        
+    private void handleLoadInputFromFileButtonAction(final ActionEvent actionEvent) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load input from file");
+        File selectedFile = fileChooser.showOpenDialog(anchorPane.getScene().getWindow());
+        if (selectedFile != null) {
+            Files.lines(selectedFile.toPath(), StandardCharsets.UTF_8).forEach(line -> inputTextArea.appendText(line + System.lineSeparator()));
+        }
     }
     
     @FXML
