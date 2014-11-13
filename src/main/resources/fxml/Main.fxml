@@ -34,7 +34,8 @@
                   <ComboBox fx:id="typesetComboBox" layoutY="81.0" prefWidth="130.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="100.0" />
                   <Button layoutX="46.0" layoutY="131.0" mnemonicParsing="false" onAction="#handleConvertButtonAction" text="Convert" AnchorPane.topAnchor="134.0" />
                   <Label layoutX="37.0" layoutY="77.0" text="Target typeset" AnchorPane.topAnchor="76.0" />
-                  <Button layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLoadInputFromFileButtonAction" text="Load input from file" AnchorPane.topAnchor="28.0" />
+                  <Button layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLoadInputFromFileButtonAction" text="Load input from file" AnchorPane.topAnchor="14.0" />
+                  <Button layoutX="23.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleSaveInputToFileButtonAction" text="Save input to file" AnchorPane.topAnchor="39.0" />
                </children>
             </AnchorPane>
          </children>

@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
@@ -74,6 +75,22 @@ public class MainController implements Initializable {
             Path selectedPath = selectedFile.toPath();
             preferences.put(OPEN_FILE_KEY, selectedPath.getParent().toString());
             Files.lines(selectedPath, StandardCharsets.UTF_8).forEach(line -> inputTextArea.appendText(line + System.lineSeparator()));
+        }
+    }
+    
+    @FXML
+    private void handleSaveInputToFileButtonAction(final ActionEvent actionEvent) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        String initialDirectory = preferences.get(SAVE_FILE_KEY, preferences.get(OPEN_FILE_KEY, null)); //if save directory not set, fall back to open directory
+        if (initialDirectory != null) {
+            fileChooser.setInitialDirectory(Paths.get(initialDirectory).toFile());
+        }
+        fileChooser.setTitle("Save input to file");
+        File selectedFile = fileChooser.showSaveDialog(anchorPane.getScene().getWindow());
+        if (selectedFile != null) {
+            Path selectedPath = selectedFile.toPath();
+            preferences.put(SAVE_FILE_KEY, selectedPath.getParent().toString());
+            Files.write(selectedPath, inputTextArea.getParagraphs(), StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
         }
     }
     
