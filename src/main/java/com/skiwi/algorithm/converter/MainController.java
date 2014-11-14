@@ -110,7 +110,7 @@ public class MainController implements Initializable {
     @FXML
     private void handleConvertButtonAction(final ActionEvent actionEvent) {
         Typeset typeset = typesetComboBox.getSelectionModel().getSelectedItem();
-        String output = typeset.getAlgorithmConverter().convert(inputTextArea.getText());
+        String output = typeset.getAlgorithmConverter().convert(inputTextArea.getParagraphs());
         outputTextArea.setText(output);
     }
     

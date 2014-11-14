@@ -1,6 +1,8 @@
 
 package com.skiwi.algorithm.converter.converters;
 
+import java.util.List;
+
 /**
  * Interface to be implemented by algorithm converters.
  *
@@ -10,8 +12,8 @@ public interface AlgorithmConverter {
     /**
      * Converts the input algorithm text to the output algorithm text.
      * 
-     * @param input The input algorithm text
+     * @param inputLines The input algorithm text, split up in lines
      * @return  The output algorithm text
      */
-    String convert(final String input);
+    String convert(final List<CharSequence> inputLines);
 }
